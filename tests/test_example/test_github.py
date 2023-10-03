@@ -40,7 +40,7 @@ def test_create_team(organization: Organization):
 
 def test_invite_user_to_organization(client: Github, organization: Organization):
     """Test invite_user_to_organization"""
-    user = get_user("mosoriob", client)
+    user = get_user("mosoriobnew", client)
     invite_user_to_organization(user, organization)
 
 
