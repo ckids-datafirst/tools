@@ -34,6 +34,14 @@ def get_repo_by_organization(name: str, organization: Organization) -> Repositor
     return organization.get_repo(name)
 
 
+def check_team_exists(name: str, organization: Organization) -> bool:
+    paginated_list = organization.get_teams()
+    for team in paginated_list:
+        if team.name == name:
+            return True
+    return False
+
+
 def get_team(name: str, organization: Organization) -> Team:
     return organization.get_team_by_slug(name)
 
@@ -98,7 +106,7 @@ def get_user(username: str, client: Github) -> Union[NamedUser, AuthenticatedUse
     return client.get_user(username)
 
 
-def check_user_is_member(
+def is_user_part_of_organization(
     user: Union[NamedUser, AuthenticatedUser], organization: Organization
 ) -> bool:
     """Check if a user is a member of the organization"""
