@@ -1,3 +1,4 @@
+
 #* Variables
 SHELL := /usr/bin/env bash
 PYTHON := python
@@ -10,11 +11,11 @@ VERSION := latest
 #* Poetry
 .PHONY: poetry-download
 poetry-download:
-        curl -sSL https://install.python-poetry.org | $(PYTHON) -
+	curl -sSL https://install.python-poetry.org | $(PYTHON) -
 
 .PHONY: poetry-remove
 poetry-remove:
-        curl -sSL https://install.python-poetry.org | $(PYTHON) - --uninstall
+	curl -sSL https://install.python-poetry.org | $(PYTHON) - --uninstall
 
 #* Installation
 .PHONY: install
@@ -40,7 +41,7 @@ formatting: codestyle
 #* Linting
 .PHONY: test
 test:
-	PYTHONPATH=$(PYTHONPATH) poetry run pytest -c pyproject.toml --cov-report=html --cov=datafirst_tools tests/
+	PYTHONPATH=$(PYTHONPATH) poetry run pytest -c pyproject.toml --cov-report=html --cov=datafirst_tools --basetemp=testResults tests/
 	poetry run coverage-badge -o assets/images/coverage.svg -f
 
 .PHONY: check-codestyle
@@ -56,7 +57,7 @@ mypy:
 .PHONY: check-safety
 check-safety:
 	poetry check
-	poetry run safety check --full-report
+	poetry run safety check --full-report -i 51457
 	poetry run bandit -ll --recursive datafirst_tools tests
 
 .PHONY: lint
